@@ -9,6 +9,7 @@ module Calculations
 
     def initialize(trip)
       @trip = trip
+      @total_additional_fuel = 0
     end
 
     def amount 
@@ -18,11 +19,9 @@ module Calculations
     private
 
     def total_additional_fuel
-      additional_fuel = 0
-
       route_fuel_list.inject(total_routes_fuel) do |fuel_mass, route_fuel|
         fuel_mass -= route_fuel.amount
-        additional_fuel += Calculations::AdditionalFuel.perform(fuel_mass, route_fuel.route.direction, route_fuel.route.gravity)
+        @total_additional_fuel += Calculations::AdditionalFuel.perform(fuel_mass, route_fuel.route.direction, route_fuel.route.gravity)
       end
     end
 
