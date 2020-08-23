@@ -19,9 +19,9 @@ module Calculations
     private
 
     def total_additional_fuel
-      route_fuel_list.inject(total_routes_fuel) do |fuel_mass, route_fuel|
-        fuel_mass -= route_fuel.amount
-        @total_additional_fuel += Calculations::AdditionalFuel.perform(fuel_mass, route_fuel.route.direction, route_fuel.route.gravity)
+      route_fuel_list.inject(total_routes_fuel) do |total_fuel_amount, route_fuel|
+        total_fuel_amount -= route_fuel.amount
+        @total_additional_fuel += Calculations::AdditionalFuel.perform(total_fuel_amount, route_fuel.route.direction, route_fuel.route.gravity)
       end
     end
 
