@@ -1,7 +1,8 @@
-require_relative 'route_fuel'
-require_relative 'additional_fuel'
-
 module Calculations
+
+  autoload :RouteFuel, 'calculations/route_fuel'
+  autoload :AdditionalFuel, 'calculations/additional_fuel'
+  autoload :Helper, 'calculations/helper'
 
   class TotalFuel
 
@@ -21,13 +22,13 @@ module Calculations
     def total_additional_fuel
       route_fuel_list.inject(total_routes_fuel) do |total_fuel_amount, route_fuel|
         total_fuel_amount -= route_fuel.amount
-        @total_additional_fuel += Calculations::AdditionalFuel.perform(total_fuel_amount, route_fuel.route.direction, route_fuel.route.gravity)
+        @total_additional_fuel += AdditionalFuel.amount(total_fuel_amount, route_fuel.route.direction, route_fuel.route.gravity)
       end
     end
 
     def route_fuel_list
       @route_fuel_list ||= trip.routes.map do |route|
-        Calculations::RouteFuel.new(route, trip.ship_mass)
+        RouteFuel.new(route, trip.ship_mass)
       end
     end
 

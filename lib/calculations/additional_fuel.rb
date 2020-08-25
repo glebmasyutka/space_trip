@@ -1,12 +1,10 @@
-require_relative 'helper'
-
 module Calculations
 
   module AdditionalFuel
 
     module_function
 
-    def perform(fuel_amount, route_direction, route_gravity)
+    def amount(fuel_amount, route_direction, route_gravity)
       additional_fuel = 0
       mass = Calculations::Helper.send("calculate_for_#{route_direction}", fuel_amount, route_gravity)
 
