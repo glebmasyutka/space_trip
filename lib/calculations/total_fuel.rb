@@ -34,7 +34,7 @@ module Calculations
     end
 
     def total_routes_fuel
-      @total_route_fuel ||= route_fuel_list.inject(@total_routes_fuel) do |result, route_fuel|
+      route_fuel_list.inject(@total_routes_fuel) do |result, route_fuel|
         result += route_fuel.amount
       end
     end
